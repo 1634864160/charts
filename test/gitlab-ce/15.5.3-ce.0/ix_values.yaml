@@ -1,0 +1,4 @@
+image:
+  pullPolicy: IfNotPresent
+  repository: gitlab/gitlab-ce
+  tag: 15.5.3-ce.0

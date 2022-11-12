@@ -1,0 +1,15 @@
+apiVersion: v1
+appVersion: 2022-11-2
+dependencies:
+- name: common
+  repository: file://../../../library/common/2207.0.0
+  version: 2207.0.0
+description: GitLab Community Edition
+icon: file://../../../chart-icons/gitlab-ce.png
+keywords:
+- storage
+- p2p
+name: gitlab-ce
+sources:
+- https://hub.docker.com/r/gitlab/gitlab-ce
+version: 15.5.3-ce.0

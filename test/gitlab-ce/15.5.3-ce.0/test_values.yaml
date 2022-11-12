@@ -1,0 +1,24 @@
+appVolumeMounts:
+  config:
+    emptyDir: true
+    mountPath: /etc/gitlab
+  logs:
+    emptyDir: true
+    mountPath: /var/log/gitlab
+  data:
+    emptyDir: true
+    mountPath: /var/opt/gitlab
+dnsConfig:
+  options: []
+emptyDirVolumes: true
+environmentVariables: []
+extraArgs: []
+image:
+  pullPolicy: IfNotPresent
+  repository: gitlab/gitlab-ce
+  tag: 15.5.3-ce.0
+service:
+  apiPort: 30951
+  gatewayPort: 30980
+  swarmPort: 30941
+updateStrategy: Recreate

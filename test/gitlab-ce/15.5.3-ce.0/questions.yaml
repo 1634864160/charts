@@ -5,7 +5,7 @@ groups:
     description: "Configure Workload Configuration"
   - name: "Storage"
     description: "Configure Storage for GitLab-CE"
-  - name: "Environment Configuration"
+  - name: "GitLab-CE Configuration"
     description: "Configure Environment for GitLab-CE"
   - name: "Advanced DNS Settings"
     description: "Configure DNS settings"
@@ -151,7 +151,7 @@ questions:
 
   - variable: environmentVariables
     label: "GitLab-CE image environment"
-    group: "Environment Configuration"
+    group: "GitLab-CE Configuration"
     schema:
       type: list
       default: []

@@ -5,8 +5,8 @@ groups:
     description: "Configure Workload Configuration"
   - name: "Storage"
     description: "Configure Storage for GitLab-CE"
-  - name: "Environment Configuration"
-    description: "Configure Environment for GitLab-CE"
+  - name: "IPFS Configuration"
+    description: "Configure Storage for GitLab-CE"
   - name: "Advanced DNS Settings"
     description: "Configure DNS settings"
   - name: "Resource Limits"
@@ -149,6 +149,27 @@ questions:
                         type: hostpath
                         required: true
 
+  - variable: environmentVariables
+    label: "IPFS image environment"
+    group: "IPFS Configuration"
+    schema:
+      type: list
+      default: []
+      items:
+        - variable: environmentVariable
+          label: "Environment Variable"
+          schema:
+            type: dict
+            attrs:
+              - variable: name
+                label: "Name"
+                schema:
+                  type: string
+              - variable: value
+                label: "Value"
+                schema:
+                  type: string
+
   - variable: dnsConfig
     label: "DNS Configuration"
     group: "Advanced DNS Settings"
@@ -175,27 +196,6 @@ questions:
                       schema:
                         type: string
                         required: true
-
-  - variable: environmentVariables
-    label: "GitLab image environment"
-    group: "Environment Configuration"
-    schema:
-      type: list
-      default: []
-      items:
-        - variable: environmentVariable
-          label: "Environment Variable"
-          schema:
-            type: dict
-            attrs:
-              - variable: name
-                label: "Name"
-                schema:
-                  type: string
-              - variable: value
-                label: "Value"
-                schema:
-                  type: string
 
   - variable: service
     description: "IPFS Service Configuration"

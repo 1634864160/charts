@@ -150,7 +150,7 @@ questions:
                         required: true
 
   - variable: environmentVariables
-    label: "IPFS image environment"
+    label: "GitLab-CE image environment"
     group: "IPFS Configuration"
     schema:
       type: list

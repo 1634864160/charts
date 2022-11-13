@@ -6,7 +6,7 @@ groups:
   - name: "Storage"
     description: "Configure Storage for GitLab-CE"
   - name: "IPFS Configuration"
-    description: "Configure Storage for GitLab-CE"
+    description: "Configure Environment for GitLab-CE"
   - name: "Advanced DNS Settings"
     description: "Configure DNS settings"
   - name: "Resource Limits"

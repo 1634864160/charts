@@ -177,7 +177,7 @@ questions:
                         required: true
 
   - variable: environmentVariables
-    label: "GitLab-CE image environment"
+    label: "GitLab image environment"
     group: "Environment Configuration"
     schema:
       type: list

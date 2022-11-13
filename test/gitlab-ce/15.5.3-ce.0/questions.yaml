@@ -2,11 +2,11 @@ groups:
   - name: "Container Images"
     description: "Image to be used for container"
   - name: "Workload Configuration"
-    description: "Configure Storage for IPFS"
+    description: "Configure Workload Configuration"
   - name: "Storage"
-    description: "Configure Storage for IPFS"
+    description: "Configure Storage for GitLab-CE"
   - name: "IPFS Configuration"
-    description: "Configure Storage for IPFS"
+    description: "Configure Storage for GitLab-CE"
   - name: "Advanced DNS Settings"
     description: "Configure DNS settings"
   - name: "Resource Limits"
@@ -24,6 +24,130 @@ portals:
     path: "/webui"
 
 questions:
+
+  - variable: updateStrategy
+    label: "Update Strategy"
+    group: "Workload Configuration"
+    schema:
+      type: string
+      default: "Recreate"
+      enum:
+        - value: "RollingUpdate"
+          description: "Create new pods and then kill old ones"
+        - value: "Recreate"
+          description: "Kill existing pods before creating new ones"
+
+  - variable: appVolumeMounts
+    label: "GitLab-CE Storage"
+    group: "Storage"
+    schema:
+      type: dict
+      attrs:
+        - variable: config
+          label: "Config Volume"
+          schema:
+            type: dict
+            attrs:
+              - variable: datasetName
+                label: "GitLab-CE config Volume Dataset Name"
+                schema:
+                  type: string
+                  hidden: true
+                  $ref:
+                    - "normalize/ixVolume"
+                  show_if: [["hostPathEnabled", "=", false]]
+                  default: "ix-ipfs-staging"
+                  editable: false
+              - variable: mountPath
+                label: "GitLab-CE config Mount Path"
+                description: "Path where the volume will be mounted inside the pod"
+                schema:
+                  type: path
+                  hidden: true
+                  editable: false
+                  default: "/etc/gitlab"
+              - variable: hostPathEnabled
+                label: "Enable Host Path for GitLab-CE config Volume"
+                schema:
+                  type: boolean
+                  default: false
+                  show_subquestions_if: true
+                  subquestions:
+                    - variable: hostPath
+                      label: "Host Path for GitLab-CE config Volume"
+                      schema:
+                        type: hostpath
+                        required: true
+        - variable: logs
+          label: "Logs Volume"
+          schema:
+            type: dict
+            attrs:
+              - variable: datasetName
+                label: "GitLab-CE logs Volume Dataset Name"
+                schema:
+                  type: string
+                  hidden: true
+                  $ref:
+                    - "normalize/ixVolume"
+                  show_if: [["hostPathEnabled", "=", false]]
+                  default: "ix-ipfs-staging"
+                  editable: false
+              - variable: mountPath
+                label: "GitLab-CE logs Mount Path"
+                description: "Path where the volume will be mounted inside the pod"
+                schema:
+                  type: path
+                  hidden: true
+                  editable: false
+                  default: "/var/log/gitlab"
+              - variable: hostPathEnabled
+                label: "Enable Host Path for GitLab-CE logs Volume"
+                schema:
+                  type: boolean
+                  default: false
+                  show_subquestions_if: true
+                  subquestions:
+                    - variable: hostPath
+                      label: "Host Path for GitLab-CE logs Volume"
+                      schema:
+                        type: hostpath
+                        required: true
+        - variable: data
+          label: "Data Volume"
+          schema:
+            type: dict
+            attrs:
+              - variable: datasetName
+                label: "GitLab-CE data Volume Dataset Name"
+                schema:
+                  type: string
+                  hidden: true
+                  $ref:
+                    - "normalize/ixVolume"
+                  show_if: [["hostPathEnabled", "=", false]]
+                  default: "ix-ipfs-staging"
+                  editable: false
+              - variable: mountPath
+                label: "GitLab-CE data Mount Path"
+                description: "Path where the volume will be mounted inside the pod"
+                schema:
+                  type: path
+                  hidden: true
+                  editable: false
+                  default: "/var/opt/gitlab"
+              - variable: hostPathEnabled
+                label: "Enable Host Path for GitLab-CE data Volume"
+                schema:
+                  type: boolean
+                  default: false
+                  show_subquestions_if: true
+                  subquestions:
+                    - variable: hostPath
+                      label: "Host Path for GitLab-CE data Volume"
+                      schema:
+                        type: hostpath
+                        required: true
 
   - variable: dnsConfig
     label: "DNS Configuration"
@@ -51,18 +175,6 @@ questions:
                       schema:
                         type: string
                         required: true
-
-  - variable: updateStrategy
-    label: "IPFS update strategy"
-    group: "Workload Configuration"
-    schema:
-      type: string
-      default: "Recreate"
-      enum:
-        - value: "RollingUpdate"
-          description: "Create new pods and then kill old ones"
-        - value: "Recreate"
-          description: "Kill existing pods before creating new ones"
 
   - variable: environmentVariables
     label: "IPFS image environment"
@@ -117,83 +229,6 @@ questions:
             max: 65535
             default: 9880
             required: true
-
-  - variable: appVolumeMounts
-    label: "IPFS Storage"
-    group: "Storage"
-    schema:
-      type: dict
-      attrs:
-        - variable: staging
-          label: "Staging Volume"
-          schema:
-            type: dict
-            attrs:
-              - variable: datasetName
-                label: "IPFS Staging Volume Dataset Name"
-                schema:
-                  type: string
-                  hidden: true
-                  $ref:
-                    - "normalize/ixVolume"
-                  show_if: [["hostPathEnabled", "=", false]]
-                  default: "ix-ipfs-staging"
-                  editable: false
-              - variable: mountPath
-                label: "IPFS Staging Mount Path"
-                description: "Path where the volume will be mounted inside the pod"
-                schema:
-                  type: path
-                  hidden: true
-                  editable: false
-                  default: "/export"
-              - variable: hostPathEnabled
-                label: "Enable Host Path for IPFS Staging Volume"
-                schema:
-                  type: boolean
-                  default: false
-                  show_subquestions_if: true
-                  subquestions:
-                    - variable: hostPath
-                      label: "Host Path for IPFS Staging Volume"
-                      schema:
-                        type: hostpath
-                        required: true
-        - variable: data
-          label: "Data Volume"
-          schema:
-            type: dict
-            attrs:
-              - variable: datasetName
-                label: "IPFS Data Volume Name"
-                schema:
-                  type: string
-                  hidden: true
-                  $ref:
-                    - "normalize/ixVolume"
-                  show_if: [["hostPathEnabled", "=", false]]
-                  default: "ix-ipfs-data"
-                  editable: false
-              - variable: mountPath
-                label: "IPFS Data Mount Path"
-                description: "Path where the volume will be mounted inside the pod"
-                schema:
-                  type: path
-                  hidden: true
-                  editable: false
-                  default: "/data/ipfs"
-              - variable: hostPathEnabled
-                label: "Enable Host Path for IPFS Data Volume"
-                schema:
-                  type: boolean
-                  default: false
-                  show_subquestions_if: true
-                  subquestions:
-                    - variable: hostPath
-                      label: "Host Path for IPFS Data Volume"
-                      schema:
-                        type: hostpath
-                        required: true
 
   - variable: enableResourceLimits
     label: "Enable Pod resource limits"

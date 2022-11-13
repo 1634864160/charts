@@ -6,7 +6,7 @@ groups:
   - name: "Storage"
     description: "Configure Storage for GitLab-CE"
   - name: "GitLab-CE Configuration"
-    description: "Configure Environment for GitLab-CE"
+    description: "Configure Storage for GitLab-CE"
   - name: "Advanced DNS Settings"
     description: "Configure DNS settings"
   - name: "Resource Limits"
@@ -200,7 +200,7 @@ questions:
   - variable: service
     description: "IPFS Service Configuration"
     label: "IPFS Service Configuration"
-    group: "IPFS Configuration"
+    group: "GitLab-CE Configuration"
     schema:
       type: dict
       required: true

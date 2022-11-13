@@ -197,39 +197,6 @@ questions:
                         type: string
                         required: true
 
-  - variable: service
-    description: "IPFS Service Configuration"
-    label: "IPFS Service Configuration"
-    group: "GitLab-CE Configuration"
-    schema:
-      type: dict
-      required: true
-      attrs:
-        - variable: swarmPort
-          label: "Swarm Port to use for IPFS (Public)"
-          schema:
-            type: int
-            min: 9000
-            max: 65535
-            default: 9401
-            required: true
-        - variable: apiPort
-          label: "API Port to use for IPFS (local)"
-          schema:
-            type: int
-            min: 9000
-            max: 65535
-            default: 9501
-            required: true
-        - variable: gatewayPort
-          label: "Gateway Port to use for IPFS (local)"
-          schema:
-            type: int
-            min: 9000
-            max: 65535
-            default: 9880
-            required: true
-
   - variable: enableResourceLimits
     label: "Enable Pod resource limits"
     group: "Resource Limits"
@@ -253,4 +220,4 @@ questions:
       type: string
       show_if: [["enableResourceLimits", "=", true]]
       valid_chars: "^([+-]?[0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$"
-      default: "8Gi"
+      default: "4Gi"

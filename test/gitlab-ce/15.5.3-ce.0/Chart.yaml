@@ -7,9 +7,11 @@ dependencies:
 description: GitLab Community Edition
 icon: file://../../../chart-icons/gitlab-ce.png
 keywords:
-- storage
-- p2p
+- git
+- gitlab
+- code review
 name: gitlab-ce
+type: application
 sources:
 - https://hub.docker.com/r/gitlab/gitlab-ce
 version: 15.5.3-ce.0
